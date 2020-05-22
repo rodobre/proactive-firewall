@@ -1,0 +1,3 @@
+[submodule "mt-pypeline"]
+	path = mt-pypeline
+	url = https://github.com/rodobre/mt-pypeline.git
