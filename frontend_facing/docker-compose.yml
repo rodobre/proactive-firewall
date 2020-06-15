@@ -7,5 +7,4 @@ services:
             dockerfile: Dockerfile
         volumes:
             - ./:/react_app
-        ports:
-            - "23231:5000"
+        network_mode: "host"
