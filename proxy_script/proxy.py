@@ -22,7 +22,6 @@ THREAD_SLEEP_TIME = 60
 
 VERBOSE_LEVEL = 0
 packets_dump = []
-settings = {}
 
 
 redis_packet_queue = None
@@ -204,11 +203,9 @@ def save_as_csv(filename, columns, data):
 
 def dump_traffic():
     global packets_dump
-    global settings
     global redis_packet_queue
     global redis_results_queue
 
-    settings = read_settings()
     redis_packet_queue = RedisQueue('packet_worker_queue')
     redis_results_queue = RedisQueue('packet_results_queue')
 
@@ -218,23 +215,6 @@ def dump_traffic():
         date = dt.datetime.fromtimestamp(ts).strftime('%d-%m-%Y_%H:%M:%S')
         save_as_csv('./packet_dump{}.csv'.format(date), ['Status code', 'Method', 'Version', 'Scheme', 'Request Length', 'Response Length', 'Request Entropy', 'Response Entropy', 'Client Connection', 'Server Connection'], packets_dump)
         time.sleep(THREAD_SLEEP_TIME)
-
-def read_settings():
-    lines = []
-    settings = {}
-    with open('settings', 'r') as settings_file:
-        lines = settings_file.readlines()
-    
-    for line in lines:
-        line = line.strip()
-        if not line:
-            continue
-        key, value = line.split('=')
-        if not key or not value:
-            continue
-        settings[key] = value
-    
-    return settings
 
 traffic_dump = threading.Thread(target=dump_traffic)
 traffic_dump.start()
