@@ -16,6 +16,7 @@ A demo of the project can be found at https://www.youtube.com/watch?v=W0trfWDBAp
 ### Endpoint structure and diagram
 
 ![UML Diagram](/resources/uml.png)
+![Backlog](/resources/jira.png)
 
 The project is structured as such:
 
