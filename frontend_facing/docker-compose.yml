@@ -8,3 +8,4 @@ services:
         volumes:
             - ./:/react_app
         network_mode: "host"
+        restart: always
