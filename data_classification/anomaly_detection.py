@@ -4,8 +4,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 
+# class for the Anomaly Detection endpoint
 class AnomalyDetection:
     def __init__(self, max_samples=256):
+        ''' x_train is the training set, x_test is the testing set, rng is the random state
+            y_pred_train is the prediction on the training set, y_pred_test is the prediction on the test set '''
         self.max_samples = max_samples
         self.rng = np.random.RandomState(random.randint(0, 100))
         self.df = None
@@ -17,16 +20,19 @@ class AnomalyDetection:
         self.iso = None
 
     def train_test_split(self, x, coeff=0.2):
+        ''' custom train test split function '''
         margin = int(len(x) * 0.2)
         return (x[:margin], x[margin + 1:])
 
     def load_model(self, csv_file):
+        ''' load the model as a pandas dataframe '''
         self.df = pd.read_csv(csv_file)
         self.df = self.df.sample(frac=1)
         self.x = self.df.to_numpy()
         return self.x, self.df
 
     def train_forest(self):
+        ''' train the forest with the fetched variables '''
         self.x_train, self.x_test = self.train_test_split(self.x)
         self.iso = IsolationForest(max_samples=self.max_samples, random_state=self.rng)
         self.iso.fit(self.x_train)

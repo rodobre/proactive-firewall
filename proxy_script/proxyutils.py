@@ -1,8 +1,10 @@
 import math
 
+# format a host as a tuple of IP address and port
 def format_addr(addr):
 	return '{}:{}'.format(addr[0], addr[1])
 
+# 32-bit hash function, custom made
 def small_hash(inp):
 	base_hash = 917055679
 	base_add = 382110149
@@ -24,7 +26,7 @@ def small_hash(inp):
 
 	return base_hash
 
-
+# calculate the entropy of a message
 def entropy(inp, base=2.0):
 	if not inp:
 		return 1.0

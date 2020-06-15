@@ -187,6 +187,7 @@ def websocket_end(flow: websocket.WebSocketFlow):
                 format_addr(flow.client_conn.address))
         )
 
+# save the file as a csv
 def save_as_csv(filename, columns, data):
     if not data or not columns:
         return
@@ -201,6 +202,7 @@ def save_as_csv(filename, columns, data):
             csv_out.write(repr(dat)[1:-1])
             csv_out.write('\n')
 
+# the dump_traffic coroutine dumps information about proxied packets
 def dump_traffic():
     global packets_dump
     global redis_packet_queue
